@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% load humanize%}
+{% block title %}{{ equipment.equipment_name }} {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">{{ equipment.equipment_name }}</h1>
+          <p class="lead">
+            <i class="fas fa-map-marker"></i> {{ equipment.equipment_type }} {{ equipment.location }}, <strong>Units available:</strong> {{ equipment.quantity }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'equipments' %}">Equipments</a>
+          </li>
+          <li class="breadcrumb-item active">{{ equipment.equipment_name }}</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
+
+  <!-- Listing -->
+  <section id="equipment" class="py-4">
+    <div class="container">
+      <a href="{% url 'equipments' %}" class="btn btn-light mb-4">Back To Equipments</a>
+      <div class="row">
+        <div class="col-md-9">
+          <!-- Home Main Image -->
+          <img src="{{ equipment.photo_main.url }}" alt="" class="img-main img-fluid mb-3">
+          <!-- Thumbnails -->
+          <div class="row mb-5 thumbs">
+          	{% if equipment.photo_1 %}
+            <div class="col-md-2">
+              <a href="{{ equipment.photo_1.url }}" data-lightbox="home-images">
+                <img src="{{ equipment.photo_1.url }}" alt="" class="img-fluid" height="300">
+              </a>
+            </div>
+            {% endif %}
+            {% if equipment.photo_2 %}
+            <div class="col-md-2">
+              <a href="{{ equipment.photo_2.url }}" data-lightbox="home-images">
+                <img src="{{ equipment.photo_2.url }}" alt="" class="img-fluid" height="300">
+              </a>
+            </div>
+            {% endif %}
+            {% if equipment.photo_3 %}
+            <div class="col-md-2">
+              <a href="{{ equipment.photo_3.url }}" data-lightbox="home-images">
+                <img src="{{ equipment.photo_3.url }}" alt="" class="img-fluid" height="300">
+              </a>
+            </div>
+            {% endif %}
+            {% if equipment.photo_4 %}
+            <div class="col-md-2">
+              <a href="{{ equipment.photo_4.url }}" data-lightbox="home-images">
+                <img src="{{ equipment.photo_4.url }}" alt="" class="img-fluid" height="300">
+              </a>
+            </div>
+            {% endif %}
+            {% if equipment.photo_5 %}
+            <div class="col-md-2">
+              <a href="{{ equipment.photo_5.url }}" data-lightbox="home-images">
+                <img src="{{ equipment.photo_5.url }}" alt="" class="img-fluid" height="300">
+              </a>
+            </div>
+            {% endif %}
+            {% if equipment.photo_6 %}
+            <div class="col-md-2">
+              <a href="{{ equipment.photo_6.url }}" data-lightbox="home-images">
+                <img src="{{ equipment.photo_6.url }}" alt="" class="img-fluid" height="300">
+              </a>
+            </div>
+            {% endif %}
+          </div>
+          <!-- Fields -->
+          <div class="row mb-5 fields">
+            <div class="col-md-6">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-money-bill-alt"></i> Asking Price:
+                  <span class="float-right">PHP {{ equipment.price | intcomma }}</span>
+                </li>
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-bed"></i> Capacity:
+                  <span class="float-right">{{ equipment.capacity }}</span>
+                </li>
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-bath"></i> Driver:
+                  <span class="float-right">{{ equipment.driver }}</span>
+                </li>
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-car"></i> Quantity:
+                  <span class="float-right">{{ equipment.quantity }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-th-large"></i> Square Feet:
+                  <span class="float-right">{{ equipment.sqft }}</span>
+                </li>
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-square"></i> Equipment Location:
+                  <span class="float-right">{{ equipment.location }}
+                  </span>
+                </li>
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-calendar"></i> Date Added:
+                  <span class="float-right">{{ equipment.date_added }}</span>
+                </li>
+                <li class="list-group-item text-secondary">
+                  <i class="fas fa-bed"></i> Consultant:
+                  <span class="float-right">{{ equipment.consultant }}
+                  </span>
+                </li>
+
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="row mb-5">
+            <div class="col-md-12">{{ equipment.description }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card mb-3">
+            <img class="card-img-top" src="{{ equipment.consultant.photo.url }}" alt="Seller of the month">
+            <div class="card-body">
+              <h5 class="card-title">Equipment Consultant</h5>
+              <h6 class="text-secondary">{{ equipment.consultant}}</h6>
+            </div>
+          </div>
+          <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
+          <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#rentalModal">Request Rental</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry Modal -->
+  <div class="modal fade" id="inquiryModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="inquiryModalLabel">Make An Inquiry</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'inquiry' %}" method="POST">
+          	{% csrf_token %}
+          	{% if user.is_authenticated %}
+          		<input type="hidden" name="user_id" value="{{user.id}}">
+          	{% else %}
+          		<input type="hidden" name="user_id" value="0">
+          	{% endif %}
+          	<input type="hidden" name="consultant_email" value="{{ equipment.consultant.email }}">
+          	<input type="hidden" name="equipment_id" value="{{ equipment.id }}">
+            <div class="form-group">
+              <label for="equipment_name" class="col-form-label">Equipment:</label>
+              <input type="text" name="equipment" class="form-control" value="{{ equipment.equipment_name }}">
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{ user.first_name}} {{ user.last_name }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-form-label">Email:</label>
+              <input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{ user.email}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="phone" class="col-form-label">Phone:</label>
+              <input type="text" name="phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="message" class="col-form-label">Message:</label>
+              <textarea name="message" class="form-control"></textarea>
+            </div>
+            <hr>
+            <input type="submit" value="Send" class="btn btn-block btn-secondary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Rental Modal -->
+  <div class="modal fade" id="rentalModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rentalModalLabel">Request Rental</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'rental' %}" method="POST">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+              <input type="hidden" name="user_id" value="{{user.id}}">
+            {% else %}
+              <input type="hidden" name="user_id" value="0">
+            {% endif %}
+            <input type="hidden" name="consultant_email" value="{{ equipment.consultant.email }}">
+            <input type="hidden" name="equipment_id" value="{{ equipment.id }}">
+            <div class="form-group">
+              <label for="equipment_name" class="col-form-label">Equipment:</label>
+              <input type="text" name="equipment" class="form-control" value="{{ equipment.equipment_name }}">
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name:</label>
+              <input type="text" name="name" class="form-control" {% if user.is_authenticated %} value="{{ user.first_name}} {{ user.last_name }}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-form-label">Email:</label>
+              <input type="email" name="email" class="form-control" {% if user.is_authenticated %} value="{{ user.email}}" {% endif %} required>
+            </div>
+            <div class="form-group">
+              <label for="start_date" class="col-form-label">Start Date:</label>
+              <input type="date" name="start_date" class="form-control" placeholder="yyyy-mm-dd"required>
+            </div>
+            <div class="form-group">
+              <label for="end_date" class="col-form-label">End Date:</label>
+              <input type="date" name="end_date" class="form-control" placeholder="yyyy-mm-dd" required>
+            </div>
+            <div class="form-group">
+              <label for="status" class="col-form-label">Status:</label>
+              <input type="text" name="status" class="form-control" value="Pending" required>
+            </div>
+            <hr>
+            <input type="submit" value="Send" class="btn btn-block btn-secondary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

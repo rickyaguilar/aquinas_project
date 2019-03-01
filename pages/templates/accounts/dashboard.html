@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard {% endblock %}
+
+{% block content %}
+  <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">User Dashboard</h1>
+          <p class="lead">Manage your Aquinas Marine Services account</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Dashboard</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
+
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Welcome {{ user.first_name }}</h2>
+          {% if inquiries %}
+            <p>Here are the equipments listings that you have inquired about</p>
+            <h1>Inquries</h1>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Equipment</th>
+                  <th scope="col">Date of Inquiry</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for inquiry in inquiries %}
+                  <tr>
+                    <td>{{ inquiry.id }}</td>
+                    <td>{{ inquiry.equipment }}</td>
+                    <td>{{ inquiry.contact_date}}</td>
+                    <td><a class="btn btn-light" href="{% url 'equipment' inquiry.equipment_id %}">View Equipment</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>You have not made any inquiries</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {% if rentals %}
+            <h1>Rentals</h1>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Equipment</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for rental in rentals %}
+                  <tr>
+                    <td>{{ rental.id }}</td>
+                    <td>{{ rental.equipment }}</td>
+                    <td>{{ rental.start_date}}</td>
+                    <td>{{ rental.end_date}}</td>
+                    <td>{{ rental.status}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>You have not made any rentals</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

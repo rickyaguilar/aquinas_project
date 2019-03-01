@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% block title %}Browse {% endblock %}
+
+{% block content %}
+
+<section id="showcase">
+    <div class="container text-center">
+      <div class="home-search p-5">
+        <div class="overlay p-5">
+          <h1 class="display-4 mb-4">
+            Search
+          </h1>
+          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quas, asperiores eveniet vel nostrum magnam
+            voluptatum tempore! Consectetur, id commodi!</p>
+          <div class="search">
+            <form action="{% url 'search' %}">
+              <!-- Form Row 1 -->
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Keywords</label>
+                  <input type="text" name="keywords" class="form-control" placeholder="Keyword ">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Type</label>
+                  <input type="text" name="city" class="form-control" placeholder="Type">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Location</label>
+                  <select name="state" class="form-control">
+                    <option selected="true" disabled="disabled">Location (All)</option>
+                    {% for key,value in location_choices.items %}
+            			<option value="{{ key }}" class="">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <!-- Form Row 2 -->
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label class="sr-only">Capacity</label>
+                  <select name="bedrooms" class="form-control">
+                    <option selected="true" disabled="disabled">Capacity (All)</option>
+                    {% for key, value in capacity_choices.items %}
+                    	<option value="{{ key }}">{{ value }}</option>
+					{% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <select name="price" class="form-control" id="type">
+                    <option selected="true" disabled="disabled">Max Price (Any)</option>
+                    {% for key, value in price_choices.items %}
+                    	<option value="{{ key }}">{{ value }}</option>
+					{% endfor %}
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-block mt-4" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Browse Our Equipments</h1>
+          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Browse Listings</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Listings -->
+  <section id="listings" class="py-4">
+    <div class="container">
+      <div class="row">
+		{% if equipments %}
+			{% for equipment in equipments %}
+				<!-- Listing 1 -->
+		    	<div class="col-md-6 col-lg-4 mb-4">
+		        	<div class="card listing-preview">
+		          		<img class="card-img-top" src="{{ equipment.photo_main.url }}" alt="" height="200">
+		            	<div class="card-img-overlay">
+		              <h2>
+		                <span class="badge badge-secondary text-white">PHP {{ equipment.price | intcomma }}</span>
+		              </h2>
+		            </div>
+		            <div class="card-body">
+		              <div class="listing-heading text-center">
+		                <h4 class="text-primary">{{ equipment.equipment_name }}</h4>
+		                <p>
+		                  <i class="fas fa-map-marker text-secondary"></i> {{ equipment.location }} <br> {{ equipment.equipment_type }} <br> Qty: {{ equipment.quantity }}</p>
+		              </div>
+		              <hr>
+		              <div class="row py-2 text-secondary">
+		                <div class="col-6">
+		                  <i class="fas fa-th-large"></i> {{ equipment.sqft }}</div>
+		                <div class="col-6">
+		                  <i class="fas fa-car"></i> {{ equipment.driver }}</div>
+		              </div>
+		              <div class="row py-2 text-secondary">
+		                <div class="col-6">
+		                  <i class="fas fa-bed"></i> {{ equipment.capacity }}</div>
+		                <div class="col-6">
+		                  <i class="fas fa-bath"></i> <!-- {{ equipment.price }} --></div>
+		              </div>
+		              <hr>
+		              <div class="row py-2 text-secondary">
+		                <div class="col-12">
+		                  <i class="fas fa-user"></i> {{ equipment.consultant }}</div>
+		              </div>
+		              <div class="row text-secondary pb-2">
+		                <div class="col-6">
+		                  <i class="fas fa-clock"></i> {{ equipment.date_added | timesince }}</div>
+		              </div>
+		              <hr>
+		              <a href="{% url 'equipment' equipment.id %}" class="btn btn-primary btn-block">More Info</a>
+		            </div>
+		          </div>
+		        </div>
+			{% endfor %}
+		{% else %}
+			<div class="col-md-12">
+				<p>No Listings Available</p>
+			</div>
+		{% endif %}
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+    		{% if equipments.has_other_pages %}
+	          <ul class="pagination">
+	            {% if equipments.has_previous %}
+	            	<li class="page-item">
+	            		<a href="?page={{ equipments.previous_page_number }}" class="page-link">&laquo;</a>
+	            	</li>
+	            {% else %}
+	            	<li class="page-item disabled">
+	            		<a class="page-link">&laquo;</a>
+	            	</li>
+	            {% endif %}
+	            {% for i in equipments.paginator.page_range %}
+					{% if equipments.number == i %}
+						<li class="page-item active">
+							<a class="page-link">{{i}}</a>
+						</li>
+					{% else %}
+						<li class="page-item">
+							<a href="?page={{i}}" class="page-link">{{i}}</a>
+						</li>
+					{% endif %}
+	            {% endfor %}
+	             {% if equipments.has_next %}
+	            	<li class="page-item">
+	            		<a href="?page={{ equipments.next_page_number }}" class="page-link">&raquo;</a>
+	            	</li>
+	            {% else %}
+	            	<li class="page-item disabled">
+	            		<a class="page-link">&raquo;</a>
+	            	</li>
+	            {% endif %}
+	          </ul>
+         	{% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}
