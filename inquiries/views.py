@@ -35,6 +35,7 @@ def inquiry(request):
 			'rickyjamesaguilar@gmail.com',
 			[consultant_email, 'rickyjamesaguilar@gmail.com'],
 			fail_silently=False
+		)
 
 		messages.success(request, 'Your inquiry has been submitted, a consultant will get back to you soon.')
 		return redirect('/equipments/'+equipment_id)
