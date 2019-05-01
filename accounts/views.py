@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
 
 from inquiries.models import Inquiry
 from rentals.models import Rental
@@ -33,7 +35,20 @@ def register(request):
 					# messages.success(request,'You are now logged in')
 					# return redirect('index')
 					user.save()
-					messages.success(request,'You are now registered')
+					messages.success(request,'Please check your email for verification.')
+
+					send_mail(
+						'Aquinas User Registration',
+						'Thank you for your registration.\
+						Please clink the link below to verify your account.\
+						If you are unable to click the link, please copy and paste it.\
+						\
+						http://localhost:8000/accounts/login',
+						'rickyjamesaguilar@gmail.com',
+						['rickyjamesaguilar@gmail.com', email],
+						fail_silently=False
+					)
+
 					return redirect('login')
 
 		else:
