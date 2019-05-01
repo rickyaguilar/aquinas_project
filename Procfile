@@ -1,1 +1,1 @@
-web: gunicorn aquinas_project.wsgi
+web: gunicorn core.wsgi
