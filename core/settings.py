@@ -87,8 +87,8 @@ DATABASES = {
         'NAME': 'aquinasdb',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': '192.168.1.22',
-        'PORT': '6122',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
