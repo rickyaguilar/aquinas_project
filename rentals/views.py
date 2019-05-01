@@ -25,13 +25,17 @@ def rental(request):
 
 		rental.save()
 		
-		send_mail(
-			'Equipment Rental',
-			'There has been an rental request for ' + equipment + '. Our consultant will get back to you.',
-			'rickyjamesaguilar@gmail.com',
-			[consultant_email, 'rickyjamesaguilar@gmail.com'],
-			fail_silently=False
-		)
+		# send_mail(
+		# 	'Equipment Rental',
+		# 	'Thank you for your rental request. Here are the documents that you need:\
+		# 	1. Company Certification\
+		# 	2. Company TIN\
+		# 	3. DOLE Certification',
+
+		# 	'rickyjamesaguilar@gmail.com',
+		# 	[consultant_email, 'rickyjamesaguilar@gmail.com'],
+		# 	fail_silently=False
+		# )
 		
 		messages.success(request, 'Your request has been submitted, a consultant will get back to you soon.')
 		return redirect('/equipments/'+equipment_id)
