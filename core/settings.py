@@ -83,11 +83,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'aquinasdb',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': 'localhost'
+        'HOST': '192.168.1.22',
+        'PORT': '6122',
     }
 }
 
