@@ -81,7 +81,7 @@
 		            <img class="card-img-top" src="{{ equipment.photo_main.url}}" alt="" height="200">
 		            <div class="card-img-overlay">
 		              <h2>
-		                <span class="badge badge-secondary text-white">PHP {{ equipment.price | intcomma }}</span>
+		                <span class="badge badge-secondary text-white"><!-- PHP {{ equipment.price | intcomma }} --></span>
 		              </h2>
 		            </div>
 		            <div class="card-body">
@@ -92,16 +92,16 @@
 		              </div>
 		              <hr>
 		              <div class="row py-2 text-secondary">
-		                <div class="col-6">
-		                  <i class="fas fa-th-large"></i> {{ equipment.sqft }}</div>
-		                <div class="col-6">
-		                  <i class="fas fa-car"></i> {{ equipment.driver }}</div>
+		                <div class="col-12">
+		                  <i class="fas fa-th-large"></i> {{ equipment.description }}</div>
+		                <div class="col-12">
+		                  <i class=""></i> <!-- {{ equipment.driver }} --></div>
 		              </div>
 		              <div class="row py-2 text-secondary">
 		                <div class="col-6">
-		                  <i class="fas fa-bed"></i> {{ equipment.capacity }}</div>
+		                  <i class=""></i> <!-- {{ equipment.capacity }} --></div>
 		                <div class="col-6">
-		                  <i class="fas fa-bath"></i> <!-- {{ listing.bathrooms }} --></div>
+		                  <i class=""></i> <!-- {{ listing.bathrooms }} --></div>
 		              </div>
 		              <hr>
 		              <div class="row py-2 text-secondary">
