@@ -25,7 +25,7 @@ SECRET_KEY = '8phogk69$r6&i2dhkjm@9%pcfj*x+g(apq_(a)u(61w)o!jgzv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['198.199.89.175']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aquinas_prod',
+        'NAME': 'aquinasdb',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost'
@@ -147,7 +147,7 @@ MESSAGE_TAGS = {
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER='rickyjamesaguilar@gmail.com'
-EMAIL_HOST_PASSWORD='rickyjamesaguilar@1993'
+EMAIL_HOST_PASSWORD='Rickyjamesaguilar@1993'
 EMAIL_USE_TLS=True
 
 try:
